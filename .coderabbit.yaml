@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ko-KR"
+reviews:
+  profile: "chill"
+  high_level_summary: true
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+      - develop
+  path_filters:
+    - "!**/dist/**"
+    - "!**/node_modules/**"
+    - "!**/coverage/**"
+    - "!**/*.md"
+    - "!package-lock.json"
+    - "!**/*.svg"
+    - "!public/**"
+    - "!**/*.tsbuildinfo"
+  path_instructions:
+    - path: "src/components/**"
+      instructions: |
+        - 공용 UI 컴포넌트는 props 타입을 명확히 정의하고, 불필요한 도메인 로직이 섞이지 않았는지 확인한다.
+        - className 병합은 clsx/tailwind-merge(cn 유틸)를 사용하는지 확인한다.
+        - 버튼/입력 등 인터랙티브 요소의 접근성(aria 속성, 키보드 포커스, label)을 확인한다.
+    - path: "src/features/**"
+      instructions: |
+        - 기능 단위로 응집도가 유지되는지, 다른 feature를 직접 import 하는 순환 의존이 없는지 확인한다.
+        - API 호출/상태 로직은 hook으로 분리되어 있는지 확인한다.
+    - path: "src/pages/**"
+      instructions: |
+        - 페이지는 조합(composition)에 집중하고, 복잡한 로직은 features/hooks로 위임했는지 확인한다.
+    - path: "src/hooks/**"
+      instructions: |
+        - Hook 규칙(의존성 배열, 조건부 호출 금지)과 cleanup 누락(이벤트 리스너, 타이머, 구독)을 확인한다.
+    - path: "src/lib/**"
+      instructions: |
+        - 순수 함수 위주로 작성되었는지, 반환/인자 타입이 명시되어 있는지 확인한다.
+    - path: "src/**/*.{ts,tsx}"
+      instructions: |
+        - `any` 사용, 타입 단언(as) 남용, non-null assertion(!) 사용을 지적한다.
+        - 불필요한 리렌더링(인라인 객체/함수 props, 누락된 key, 잘못된 key=index)을 확인한다.
+        - 민감 정보(토큰, API 키)가 하드코딩되거나 console.log로 노출되지 않는지 확인한다.
+        - 사용하지 않는 import/변수, 주석 처리된 코드가 남아있지 않은지 확인한다.
+    - path: "src/index.css"
+      instructions: |
+        - Tailwind v4 디자인 토큰(@theme)을 재사용하고, 하드코딩된 색상/간격 값이 늘어나지 않는지 확인한다.
+    - path: "vite.config.ts"
+      instructions: |
+        - PWA(service worker, manifest) 설정 변경이 캐싱/업데이트 동작에 미치는 영향을 확인한다.
+  tools:
+    eslint:
+      enabled: true
+    gitleaks:
+      enabled: true
+chat:
+  auto_reply: true
