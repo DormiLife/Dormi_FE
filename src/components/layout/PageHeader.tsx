@@ -4,6 +4,8 @@ import { cn } from '@/lib/utils'
 
 interface PageHeaderProps {
   title: ReactNode
+  /** 제목 왼쪽에 표시할 로고 (홈 화면 등) */
+  logo?: ReactNode
   /** 있으면 왼쪽에 뒤로가기 버튼을 표시 */
   onBack?: () => void
   /** 오른쪽 액션 (등록 버튼, 모두 읽음, 알림 아이콘 등) */
@@ -15,6 +17,7 @@ interface PageHeaderProps {
 
 export function PageHeader({
   title,
+  logo,
   onBack,
   right,
   centered,
@@ -37,6 +40,7 @@ export function PageHeader({
           <ChevronLeft className="size-7" />
         </button>
       )}
+      {logo && <span className="flex shrink-0 items-center">{logo}</span>}
       <h1
         className={cn(
           'min-w-0 flex-1 truncate text-xl font-bold text-ink',
