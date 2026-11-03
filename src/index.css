@@ -44,11 +44,13 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-button {
-  font: inherit;
-  cursor: pointer;
-}
+@layer base {
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
 
-button:disabled {
-  cursor: not-allowed;
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
