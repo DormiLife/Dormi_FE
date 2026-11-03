@@ -1,6 +1,6 @@
 import { CalendarDays, Bell, WashingMachine } from 'lucide-react'
 import { useState } from 'react'
-import { BottomNav, type NavKey } from '@/components/layout/BottomNav'
+import { BottomNav } from '@/components/layout/BottomNav'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { Avatar } from '@/components/ui/Avatar'
@@ -21,7 +21,6 @@ import { TextField } from '@/components/ui/TextField'
 
 // 공용 컴포넌트 확인용 임시 화면. 실제 페이지가 생기면 삭제한다.
 export function ComponentPreview() {
-  const [nav, setNav] = useState<NavKey>('board')
   const [tab, setTab] = useState('all')
   const [board, setBoard] = useState('all')
   const [gender, setGender] = useState('f')
@@ -46,7 +45,7 @@ export function ComponentPreview() {
         />
       }
       footer={<Button fullWidth size="lg">예약하기</Button>}
-      bottomNav={<BottomNav active={nav} onChange={setNav} />}
+      bottomNav={<BottomNav active="home" />}
       flush
     >
       <Tabs
