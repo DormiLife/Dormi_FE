@@ -54,7 +54,12 @@ export function ConfirmModal({
       </div>
       {children && <div className="mt-4">{children}</div>}
       <div className="mt-6 grid grid-cols-2 gap-3">
-        <Button variant="soft" size="lg" onClick={onCancel}>
+        <Button
+          variant="soft"
+          size="lg"
+          data-autofocus={tone === 'danger' || undefined}
+          onClick={onCancel}
+        >
           {cancelLabel}
         </Button>
         <Button

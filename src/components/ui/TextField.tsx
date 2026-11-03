@@ -1,4 +1,10 @@
-import { useId, type InputHTMLAttributes, type ReactNode } from 'react'
+import {
+  useId,
+  useState,
+  type ChangeEvent,
+  type InputHTMLAttributes,
+  type ReactNode,
+} from 'react'
 import { cn } from '@/lib/utils'
 import { controlClass } from './controlClass'
 import { FormField, type FieldStatus } from './FormField'
@@ -23,18 +29,32 @@ export function TextField({
   id,
   className,
   value,
+  defaultValue,
+  onChange,
   maxLength,
+  'aria-describedby': describedBy,
   ...props
 }: TextFieldProps) {
   const autoId = useId()
   const inputId = id ?? autoId
-  const length = String(value ?? '').length
+  const helperId = helper ? `${inputId}-helper` : undefined
+  const [uncontrolledLength, setUncontrolledLength] = useState(
+    String(defaultValue ?? '').length,
+  )
+  const length =
+    value !== undefined ? String(value).length : uncontrolledLength
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUncontrolledLength(event.target.value.length)
+    onChange?.(event)
+  }
 
   return (
     <FormField
       label={label}
       htmlFor={inputId}
       helper={helper}
+      helperId={helperId}
       status={status}
       className={className}
     >
@@ -42,8 +62,13 @@ export function TextField({
         <input
           id={inputId}
           value={value}
+          defaultValue={defaultValue}
+          onChange={handleChange}
           maxLength={maxLength}
           aria-invalid={status === 'error' || undefined}
+          aria-describedby={
+            [describedBy, helperId].filter(Boolean).join(' ') || undefined
+          }
           className={cn(controlClass(status), 'h-12 min-w-0 flex-1')}
           {...props}
         />

@@ -7,6 +7,8 @@ interface FormFieldProps {
   label?: string
   htmlFor?: string
   helper?: ReactNode
+  /** helper의 id. 입력창의 aria-describedby가 가리킨다 */
+  helperId?: string
   status?: FieldStatus
   children: ReactNode
   className?: string
@@ -22,6 +24,7 @@ export function FormField({
   label,
   htmlFor,
   helper,
+  helperId,
   status = 'default',
   children,
   className,
@@ -35,7 +38,10 @@ export function FormField({
       )}
       {children}
       {helper && (
-        <p className={cn('text-sm leading-snug', helperClass[status])}>
+        <p
+          id={helperId}
+          className={cn('text-sm leading-snug', helperClass[status])}
+        >
           {helper}
         </p>
       )}
