@@ -6,6 +6,7 @@ interface SectionHeaderProps {
   title: ReactNode
   description?: ReactNode
   actionLabel?: string
+  actionIconOnly?: boolean
   onAction?: () => void
   className?: string
 }
@@ -14,6 +15,7 @@ export function SectionHeader({
   title,
   description,
   actionLabel,
+  actionIconOnly,
   onAction,
   className,
 }: SectionHeaderProps) {
@@ -25,7 +27,17 @@ export function SectionHeader({
           <p className="mt-0.5 text-sm text-ink-mute">{description}</p>
         )}
       </div>
-      {actionLabel && (
+      {actionLabel && actionIconOnly && (
+        <button
+          type="button"
+          onClick={onAction}
+          aria-label={actionLabel}
+          className="-mt-0.5 -mr-1 flex size-8 shrink-0 items-center justify-center text-ink"
+        >
+          <ChevronRight className="size-6" />
+        </button>
+      )}
+      {actionLabel && !actionIconOnly && (
         <button
           type="button"
           onClick={onAction}
