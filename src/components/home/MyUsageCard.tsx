@@ -13,15 +13,13 @@ export interface UsageItem {
 
 interface MyUsageCardProps {
   items: UsageItem[]
-  onViewMore?: () => void
 }
 
-export function MyUsageCard({ items, onViewMore }: MyUsageCardProps) {
+export function MyUsageCard({ items }: MyUsageCardProps) {
   return (
     <Card>
       <SectionHeader
         title="나의 이용 현황"
-        onAction={onViewMore}
       />
       <div className="mt-4 space-y-2">
         {items.map(({ id, icon, title, description, onClick }) => (

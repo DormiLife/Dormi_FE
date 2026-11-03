@@ -54,7 +54,6 @@ interface FacilityStatusCardProps {
   washers: MachineStatus
   dryers: MachineStatus
   reservations: Reservation[]
-  onViewAll?: () => void
   onRegisterLaundry?: () => void
   onReserveMeetingRoom?: () => void
 }
@@ -63,7 +62,6 @@ export function FacilityStatusCard({
   washers,
   dryers,
   reservations,
-  onViewAll,
   onRegisterLaundry,
   onReserveMeetingRoom,
 }: FacilityStatusCardProps) {
@@ -71,7 +69,6 @@ export function FacilityStatusCard({
     <Card>
       <SectionHeader
         title="시설 이용 현황"
-        onAction={onViewAll}
       />
 
       <div className="mt-5 space-y-4">
