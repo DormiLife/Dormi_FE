@@ -1,4 +1,3 @@
-import { CircleAlert } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from './Button'
@@ -34,29 +33,29 @@ export function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <Modal open={open} onClose={onCancel} aria-label={title}>
-      <div className="flex flex-col items-center text-center">
+      {icon && (
         <span
           className={cn(
-            'flex size-12 items-center justify-center rounded-full [&>svg]:size-6',
+            'mb-4 flex size-12 items-center justify-center rounded-full [&>svg]:size-6',
             tone === 'danger'
               ? 'bg-danger-soft text-danger'
               : 'bg-primary-soft text-primary',
           )}
         >
-          {icon ?? <CircleAlert />}
+          {icon}
         </span>
-        <h2 className="mt-4 text-xl font-bold text-ink">{title}</h2>
-        {description && (
-          <div className="mt-3 text-sm leading-relaxed text-ink-sub">
-            {description}
-          </div>
-        )}
-      </div>
+      )}
+      <h2 className="text-lg font-bold text-ink">{title}</h2>
+      {description && (
+        <div className="mt-1.5 text-sm leading-relaxed text-ink-mute">
+          {description}
+        </div>
+      )}
       {children && <div className="mt-4">{children}</div>}
-      <div className="mt-6 grid grid-cols-2 gap-3">
+      <div className="mt-5 grid grid-cols-2 gap-2">
         <Button
           variant="soft"
-          size="lg"
+          size="sm"
           data-autofocus={tone === 'danger' || undefined}
           onClick={onCancel}
         >
@@ -64,7 +63,7 @@ export function ConfirmModal({
         </Button>
         <Button
           variant={tone === 'danger' ? 'danger' : 'primary'}
-          size="lg"
+          size="sm"
           disabled={confirmDisabled}
           onClick={onConfirm}
         >
