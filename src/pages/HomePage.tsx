@@ -23,23 +23,6 @@ const reservations: Reservation[] = [
   { start: '20:00', end: '21:00' },
 ]
 
-const usageItems: UsageItem[] = [
-  {
-    id: 'washer',
-    icon: <WashingMachine />,
-    title: '세탁기 2번 이용 중',
-    description: '22:10 완료 예정',
-    onClick: () => undefined,
-  },
-  {
-    id: 'meeting-room',
-    icon: <CalendarDays />,
-    title: '회의실 예약',
-    description: '10월 28일 (수) 14:00 ~ 15:00',
-    onClick: () => undefined,
-  },
-]
-
 const posts: BoardPost[] = [
   { id: '1', category: 'question', title: '세탁기 이용 시간은 어떻게 되나요?', author: '코코', date: '10/27' },
   { id: '2', category: 'info', title: '기숙사 주변 편의시설 공유해요!', author: '하늘', date: '10/26' },
@@ -47,7 +30,25 @@ const posts: BoardPost[] = [
 ]
 
 export function HomePage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const usageItems: UsageItem[] = [
+    {
+      id: 'washer',
+      icon: <WashingMachine />,
+      title: '세탁기 2번 이용 중',
+      description: '22:10 완료 예정',
+      onClick: () => undefined,
+    },
+    {
+      id: 'meeting-room',
+      icon: <CalendarDays />,
+      title: '회의실 예약',
+      description: '10월 28일 (수) 14:00 ~ 15:00',
+      onClick: () => navigate({ to: '/my/reservations' }),
+    },
+  ]
+
   return (
     <PageLayout
       header={
