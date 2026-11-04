@@ -18,6 +18,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as BoardPostIdRouteImport } from './routes/board_.$postId'
 import { Route as BoardNewRouteImport } from './routes/board_.new'
 import { Route as MyEditRouteImport } from './routes/my_.edit'
+import { Route as MyReservationsRouteImport } from './routes/my_.reservations'
 import { Route as BoardPostIdEditRouteImport } from './routes/board_.$postId_.edit'
 
 const IndexRoute = IndexRouteImport.update({
@@ -65,6 +66,11 @@ const MyEditRoute = MyEditRouteImport.update({
   path: '/my/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MyReservationsRoute = MyReservationsRouteImport.update({
+  id: '/my_/reservations',
+  path: '/my/reservations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BoardPostIdEditRoute = BoardPostIdEditRouteImport.update({
   id: '/board_/$postId_/edit',
   path: '/board/$postId/edit',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/board/$postId': typeof BoardPostIdRoute
   '/board/new': typeof BoardNewRoute
   '/my/edit': typeof MyEditRoute
+  '/my/reservations': typeof MyReservationsRoute
   '/board/$postId/edit': typeof BoardPostIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/board/$postId': typeof BoardPostIdRoute
   '/board/new': typeof BoardNewRoute
   '/my/edit': typeof MyEditRoute
+  '/my/reservations': typeof MyReservationsRoute
   '/board/$postId/edit': typeof BoardPostIdEditRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/board_/$postId': typeof BoardPostIdRoute
   '/board_/new': typeof BoardNewRoute
   '/my_/edit': typeof MyEditRoute
+  '/my_/reservations': typeof MyReservationsRoute
   '/board_/$postId_/edit': typeof BoardPostIdEditRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/board/$postId'
     | '/board/new'
     | '/my/edit'
+    | '/my/reservations'
     | '/board/$postId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/board/$postId'
     | '/board/new'
     | '/my/edit'
+    | '/my/reservations'
     | '/board/$postId/edit'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/board_/$postId'
     | '/board_/new'
     | '/my_/edit'
+    | '/my_/reservations'
     | '/board_/$postId_/edit'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,7 @@ export interface RootRouteChildren {
   BoardPostIdRoute: typeof BoardPostIdRoute
   BoardNewRoute: typeof BoardNewRoute
   MyEditRoute: typeof MyEditRoute
+  MyReservationsRoute: typeof MyReservationsRoute
   BoardPostIdEditRoute: typeof BoardPostIdEditRoute
 }
 
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyEditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/my_/reservations': {
+      id: '/my_/reservations'
+      path: '/my/reservations'
+      fullPath: '/my/reservations'
+      preLoaderRoute: typeof MyReservationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/board_/$postId_/edit': {
       id: '/board_/$postId_/edit'
       path: '/board/$postId/edit'
@@ -245,6 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   BoardPostIdRoute: BoardPostIdRoute,
   BoardNewRoute: BoardNewRoute,
   MyEditRoute: MyEditRoute,
+  MyReservationsRoute: MyReservationsRoute,
   BoardPostIdEditRoute: BoardPostIdEditRoute,
 }
 export const routeTree = rootRouteImport
