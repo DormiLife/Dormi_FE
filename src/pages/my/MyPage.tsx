@@ -67,8 +67,8 @@ export function MyPage() {
         <Card padded={false} className="divide-y divide-line overflow-hidden">
           <ListRow
             icon={<MessageCircle className="size-[22px] text-ink-sub" />}
-            title={<span className="font-normal">내가 쓴 글 · 좋아요한 글</span>}
-            onClick={() => undefined} // TODO: 내 활동 화면 이동
+            title={<span className="font-normal">내 게시판 활동</span>}
+            onClick={() => navigate({ to: "/my/activity" })}
           />
           <ListRow
             icon={<CalendarDays className="size-6 text-ink-sub" />}
