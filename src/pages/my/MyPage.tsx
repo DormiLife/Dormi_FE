@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { ConfirmModal } from "@/components/ui/ConfirmModal";
 import { ListRow } from "@/components/ui/ListRow";
-import { Bell, LogOut, MessageCircle, User, UserX } from "lucide-react";
+import { Bell, CalendarDays, LogOut, MessageCircle, User, UserX } from "lucide-react";
 import { useState } from "react";
 
 // TODO: API 연동 시 교체
@@ -35,8 +35,10 @@ export function MyPage() {
             <Avatar name={user.nickname} solid size="lg" />
             <div className="min-w-0 flex-1">
               <p className="text-lg font-bold text-ink">{user.nickname}</p>
-              <p className="text-sm text-ink-mute">
-                {user.name} · {user.room}
+              <p className="inline-flex items-center gap-2 text-sm text-ink-mute">
+                <span>{user.room}</span>
+                <span aria-hidden="true" className="h-3 w-[1.5px] bg-ink-mute/50" />
+                <span>{user.name}</span>
               </p>
             </div>
           </div>
@@ -44,11 +46,18 @@ export function MyPage() {
             <User className="size-6 shrink-0 text-ink-sub" />
             <div className="min-w-0 flex-1">
               <p className="text-base font-semibold text-ink">내 정보</p>
-              <p className="text-sm text-ink-mute">별명 | 호실 | 전화번호</p>
+              <p className="inline-flex items-center gap-2 text-sm text-ink-mute">
+                <span>별명</span>
+                <span aria-hidden="true" className="h-3 w-[1.5px] bg-ink-mute/50" />
+                <span>호실</span>
+                <span aria-hidden="true" className="h-3 w-[1.5px] bg-ink-mute/50" />
+                <span>전화번호</span>
+              </p>
             </div>
             <Button
               variant="outline"
               size="sm"
+              className="border-2 border-primary/60"
               onClick={() => navigate({ to: "/my/edit" })}
             >
               수정
@@ -61,6 +70,11 @@ export function MyPage() {
             icon={<MessageCircle className="size-[22px] text-ink-sub" />}
             title={<span className="font-normal">내가 쓴 글 · 좋아요한 글</span>}
             onClick={() => undefined} // TODO: 내 활동 화면 이동
+          />
+          <ListRow
+            icon={<CalendarDays className="size-6 text-ink-sub" />}
+            title={<span className="font-normal">내 회의실 예약</span>}
+            onClick={() => navigate({ to: "/my/reservations" })}
           />
           <ListRow
             icon={<Bell className="size-6 text-ink-sub" />}
