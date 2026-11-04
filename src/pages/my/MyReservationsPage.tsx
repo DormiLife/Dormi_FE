@@ -7,7 +7,7 @@ import { Badge, type BadgeTone } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { ConfirmModal } from "@/components/ui/ConfirmModal";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { Tabs } from "@/components/ui/Tabs";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import {
   formatReservationDate,
   initialMyReservations,
@@ -61,20 +61,22 @@ export function MyReservationsPage() {
       }
       flush
     >
-      <Tabs
+      <SegmentedControl
+        variant="track"
         value={tab}
         onChange={setTab}
-        items={[
-          { value: "upcoming", label: `예약 ${upcoming.length}` },
-          { value: "past", label: `지난 예약 ${past.length}` },
+        options={[
+          { value: "upcoming", label: "현재 예약" },
+          { value: "past", label: "지난 예약" },
         ]}
+        className="mx-4 mt-4"
       />
 
       {list.length === 0 ? (
         <EmptyState
           icon={<CalendarDays />}
           title={
-            tab === "upcoming" ? "예약이 없어요" : "지난 예약이 없어요"
+            tab === "upcoming" ? "현재 예약이 없어요" : "지난 예약이 없어요"
           }
         />
       ) : (
