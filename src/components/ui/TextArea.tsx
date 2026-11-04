@@ -53,6 +53,7 @@ export function TextArea({
       htmlFor={inputId}
       helper={helper}
       helperId={helperId}
+      counter={countVisible && maxLength ? `${length} / ${maxLength}` : undefined}
       status={status}
       className={className}
     >
@@ -70,11 +71,6 @@ export function TextArea({
         className={cn(controlClass(status), 'resize-none py-3.5 leading-relaxed')}
         {...props}
       />
-      {countVisible && maxLength && (
-        <p className="text-right text-sm text-ink-mute">
-          {length} / {maxLength}
-        </p>
-      )}
     </FormField>
   )
 }

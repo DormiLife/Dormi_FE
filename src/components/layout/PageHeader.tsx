@@ -3,7 +3,8 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 interface PageHeaderProps {
-  title: ReactNode
+  /** 없으면 제목 없이 뒤로가기와 오른쪽 영역만 표시 */
+  title?: ReactNode
   /** 제목 왼쪽에 표시할 로고 (홈 화면 등) */
   logo?: ReactNode
   /** 있으면 왼쪽에 뒤로가기 버튼을 표시 */
@@ -41,16 +42,18 @@ export function PageHeader({
         </button>
       )}
       {logo && <span className="flex shrink-0 items-center">{logo}</span>}
-      <h1
-        className={cn(
-          'min-w-0 flex-1 truncate text-xl font-bold text-ink',
-          centered && 'text-center',
-        )}
-      >
-        {title}
-      </h1>
+      {title && (
+        <h1
+          className={cn(
+            'min-w-0 flex-1 truncate text-xl font-bold text-ink',
+            centered && 'text-center',
+          )}
+        >
+          {title}
+        </h1>
+      )}
       {right ? (
-        <div className="shrink-0">{right}</div>
+        <div className="ml-auto shrink-0">{right}</div>
       ) : (
         centered && onBack && <div aria-hidden="true" className="-mr-1 size-10" />
       )}

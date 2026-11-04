@@ -55,6 +55,7 @@ export function TextField({
       htmlFor={inputId}
       helper={helper}
       helperId={helperId}
+      counter={showCount && maxLength ? `${length} / ${maxLength}` : undefined}
       status={status}
       className={className}
     >
@@ -74,11 +75,6 @@ export function TextField({
         />
         {action && <div className="shrink-0">{action}</div>}
       </div>
-      {showCount && maxLength && (
-        <p className="text-right text-sm text-ink-mute">
-          {length} / {maxLength}
-        </p>
-      )}
     </FormField>
   )
 }

@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BoardRouteImport } from './routes/board'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MealRouteImport } from './routes/meal'
 import { Route as MyRouteImport } from './routes/my'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as BoardPostIdRouteImport } from './routes/board_.$postId'
+import { Route as BoardNewRouteImport } from './routes/board_.new'
 import { Route as MyEditRouteImport } from './routes/my_.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardRoute = BoardRouteImport.update({
+  id: '/board',
+  path: '/board',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -41,6 +49,16 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BoardPostIdRoute = BoardPostIdRouteImport.update({
+  id: '/board_/$postId',
+  path: '/board/$postId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardNewRoute = BoardNewRouteImport.update({
+  id: '/board_/new',
+  path: '/board/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyEditRoute = MyEditRouteImport.update({
   id: '/my_/edit',
   path: '/my/edit',
@@ -49,43 +67,83 @@ const MyEditRoute = MyEditRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/board': typeof BoardRoute
   '/login': typeof LoginRoute
   '/meal': typeof MealRoute
   '/my': typeof MyRoute
   '/signup': typeof SignupRoute
+  '/board/$postId': typeof BoardPostIdRoute
+  '/board/new': typeof BoardNewRoute
   '/my/edit': typeof MyEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/board': typeof BoardRoute
   '/login': typeof LoginRoute
   '/meal': typeof MealRoute
   '/my': typeof MyRoute
   '/signup': typeof SignupRoute
+  '/board/$postId': typeof BoardPostIdRoute
+  '/board/new': typeof BoardNewRoute
   '/my/edit': typeof MyEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/board': typeof BoardRoute
   '/login': typeof LoginRoute
   '/meal': typeof MealRoute
   '/my': typeof MyRoute
   '/signup': typeof SignupRoute
+  '/board_/$postId': typeof BoardPostIdRoute
+  '/board_/new': typeof BoardNewRoute
   '/my_/edit': typeof MyEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/meal' | '/my' | '/signup' | '/my/edit'
+  fullPaths:
+    | '/'
+    | '/board'
+    | '/login'
+    | '/meal'
+    | '/my'
+    | '/signup'
+    | '/board/$postId'
+    | '/board/new'
+    | '/my/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/meal' | '/my' | '/signup' | '/my/edit'
-  id: '__root__' | '/' | '/login' | '/meal' | '/my' | '/signup' | '/my_/edit'
+  to:
+    | '/'
+    | '/board'
+    | '/login'
+    | '/meal'
+    | '/my'
+    | '/signup'
+    | '/board/$postId'
+    | '/board/new'
+    | '/my/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/board'
+    | '/login'
+    | '/meal'
+    | '/my'
+    | '/signup'
+    | '/board_/$postId'
+    | '/board_/new'
+    | '/my_/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BoardRoute: typeof BoardRoute
   LoginRoute: typeof LoginRoute
   MealRoute: typeof MealRoute
   MyRoute: typeof MyRoute
   SignupRoute: typeof SignupRoute
+  BoardPostIdRoute: typeof BoardPostIdRoute
+  BoardNewRoute: typeof BoardNewRoute
   MyEditRoute: typeof MyEditRoute
 }
 
@@ -96,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/board': {
+      id: '/board'
+      path: '/board'
+      fullPath: '/board'
+      preLoaderRoute: typeof BoardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -126,6 +191,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/board_/$postId': {
+      id: '/board_/$postId'
+      path: '/board/$postId'
+      fullPath: '/board/$postId'
+      preLoaderRoute: typeof BoardPostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/board_/new': {
+      id: '/board_/new'
+      path: '/board/new'
+      fullPath: '/board/new'
+      preLoaderRoute: typeof BoardNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my_/edit': {
       id: '/my_/edit'
       path: '/my/edit'
@@ -138,10 +217,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BoardRoute: BoardRoute,
   LoginRoute: LoginRoute,
   MealRoute: MealRoute,
   MyRoute: MyRoute,
   SignupRoute: SignupRoute,
+  BoardPostIdRoute: BoardPostIdRoute,
+  BoardNewRoute: BoardNewRoute,
   MyEditRoute: MyEditRoute,
 }
 export const routeTree = rootRouteImport
