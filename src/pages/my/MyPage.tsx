@@ -57,7 +57,6 @@ export function MyPage() {
             <Button
               variant="outline"
               size="sm"
-              className="border-2 border-primary/60"
               onClick={() => navigate({ to: "/my/edit" })}
             >
               수정
