@@ -67,22 +67,30 @@ export function getWeekOfMonth(date: Date) {
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const firstThursday = 1 + ((4 - new Date(year, month, 1).getDay() + 7) % 7)
   return {
+    year,
     month: month + 1,
     week: Math.ceil(thursday.getDate() / 7),
     totalWeeks: Math.floor((daysInMonth - firstThursday) / 7) + 1,
   }
 }
 
-/** 예: '10월 5주차' */
+/** 예: '2026년 10월 5주차' (연도는 주차 기준인 목요일의 연도) */
 export function formatWeekTitle(date: Date) {
-  const { month, week } = getWeekOfMonth(date)
-  return `${month}월 ${week}주차`
+  const { year, month, week } = getWeekOfMonth(date)
+  return `${year}년 ${month}월 ${week}주차`
 }
 
-/** 예: '10.26 ~ 11.01' */
+/**
+ * 예: '10.26 ~ 11.01'
+ * 제목에 연도가 있으므로 생략하고, 해가 바뀌는 주만 '2026.12.28 ~ 2027.01.03'처럼 연도를 붙인다
+ */
 export function formatWeekRange(date: Date) {
   const days = getWeekDays(date)
-  const fmt = (d: Date) =>
-    `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
-  return `${fmt(days[0])} ~ ${fmt(days[6])}`
+  const [start, end] = [days[0], days[6]]
+  const withYear = start.getFullYear() !== end.getFullYear()
+  const fmt = (d: Date) => {
+    const md = `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
+    return withYear ? `${d.getFullYear()}.${md}` : md
+  }
+  return `${fmt(start)} ~ ${fmt(end)}`
 }
