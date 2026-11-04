@@ -1,11 +1,13 @@
 import { BoardPreviewCard, type BoardPost } from '@/components/home/BoardPreviewCard'
 import { FacilityStatusCard } from '@/components/home/FacilityStatusCard'
 import { MyUsageCard, type UsageItem } from '@/components/home/MyUsageCard'
-import { TodayMealCard, type Meal } from '@/components/home/TodayMealCard'
+import { TodayMealCard } from '@/components/home/TodayMealCard'
+import type { Meal } from '@/lib/meal'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { PageLayout } from '@/components/layout/PageLayout'
 import type { Reservation } from '@/lib/timeSlots'
+import { useNavigate } from '@tanstack/react-router'
 import { Bell, CalendarDays, House, WashingMachine } from 'lucide-react'
 
 const meals: Meal[] = [
@@ -44,6 +46,7 @@ const posts: BoardPost[] = [
 ]
 
 export function HomePage() {
+  const navigate = useNavigate()
   return (
     <PageLayout
       header={
@@ -65,7 +68,11 @@ export function HomePage() {
       bottomNav={<BottomNav active="home" />}
       className="space-y-4"
     >
-      <TodayMealCard date="10월 27일 (화)" meals={meals} />
+      <TodayMealCard
+        date="10월 27일 (화)"
+        meals={meals}
+        onViewWeek={() => navigate({ to: '/meal' })}
+      />
       <FacilityStatusCard
         washers={{ available: 4, total: 6 }}
         dryers={{ available: 3, total: 4 }}

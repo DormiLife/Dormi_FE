@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MealRouteImport } from './routes/meal'
 import { Route as MyRouteImport } from './routes/my'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as MyEditRouteImport } from './routes/my_.edit'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MealRoute = MealRouteImport.update({
+  id: '/meal',
+  path: '/meal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyRoute = MyRouteImport.update({
@@ -44,6 +50,7 @@ const MyEditRoute = MyEditRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/meal': typeof MealRoute
   '/my': typeof MyRoute
   '/signup': typeof SignupRoute
   '/my/edit': typeof MyEditRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/meal': typeof MealRoute
   '/my': typeof MyRoute
   '/signup': typeof SignupRoute
   '/my/edit': typeof MyEditRoute
@@ -59,21 +67,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/meal': typeof MealRoute
   '/my': typeof MyRoute
   '/signup': typeof SignupRoute
   '/my_/edit': typeof MyEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/my' | '/signup' | '/my/edit'
+  fullPaths: '/' | '/login' | '/meal' | '/my' | '/signup' | '/my/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/my' | '/signup' | '/my/edit'
-  id: '__root__' | '/' | '/login' | '/my' | '/signup' | '/my_/edit'
+  to: '/' | '/login' | '/meal' | '/my' | '/signup' | '/my/edit'
+  id: '__root__' | '/' | '/login' | '/meal' | '/my' | '/signup' | '/my_/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  MealRoute: typeof MealRoute
   MyRoute: typeof MyRoute
   SignupRoute: typeof SignupRoute
   MyEditRoute: typeof MyEditRoute
@@ -93,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meal': {
+      id: '/meal'
+      path: '/meal'
+      fullPath: '/meal'
+      preLoaderRoute: typeof MealRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my': {
@@ -122,6 +139,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  MealRoute: MealRoute,
   MyRoute: MyRoute,
   SignupRoute: SignupRoute,
   MyEditRoute: MyEditRoute,
