@@ -34,6 +34,19 @@ export interface NewPostInput {
   content: string
 }
 
+export function updateBoardPost(id: string, input: NewPostInput) {
+  posts = posts.map((post) =>
+    post.id === id
+      ? {
+          ...post,
+          ...input,
+          preview: input.content.replace(/\s+/g, ' ').slice(0, 80),
+        }
+      : post,
+  )
+  listeners.forEach((listener) => listener())
+}
+
 export function addBoardPost({ category, title, content }: NewPostInput) {
   const now = new Date()
   const pad = (n: number) => String(n).padStart(2, '0')

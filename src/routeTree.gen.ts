@@ -18,6 +18,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as BoardPostIdRouteImport } from './routes/board_.$postId'
 import { Route as BoardNewRouteImport } from './routes/board_.new'
 import { Route as MyEditRouteImport } from './routes/my_.edit'
+import { Route as BoardPostIdEditRouteImport } from './routes/board_.$postId_.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const MyEditRoute = MyEditRouteImport.update({
   path: '/my/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BoardPostIdEditRoute = BoardPostIdEditRouteImport.update({
+  id: '/board_/$postId_/edit',
+  path: '/board/$postId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/board/$postId': typeof BoardPostIdRoute
   '/board/new': typeof BoardNewRoute
   '/my/edit': typeof MyEditRoute
+  '/board/$postId/edit': typeof BoardPostIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/board/$postId': typeof BoardPostIdRoute
   '/board/new': typeof BoardNewRoute
   '/my/edit': typeof MyEditRoute
+  '/board/$postId/edit': typeof BoardPostIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/board_/$postId': typeof BoardPostIdRoute
   '/board_/new': typeof BoardNewRoute
   '/my_/edit': typeof MyEditRoute
+  '/board_/$postId_/edit': typeof BoardPostIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/board/$postId'
     | '/board/new'
     | '/my/edit'
+    | '/board/$postId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/board/$postId'
     | '/board/new'
     | '/my/edit'
+    | '/board/$postId/edit'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/board_/$postId'
     | '/board_/new'
     | '/my_/edit'
+    | '/board_/$postId_/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   BoardPostIdRoute: typeof BoardPostIdRoute
   BoardNewRoute: typeof BoardNewRoute
   MyEditRoute: typeof MyEditRoute
+  BoardPostIdEditRoute: typeof BoardPostIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyEditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/board_/$postId_/edit': {
+      id: '/board_/$postId_/edit'
+      path: '/board/$postId/edit'
+      fullPath: '/board/$postId/edit'
+      preLoaderRoute: typeof BoardPostIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   BoardPostIdRoute: BoardPostIdRoute,
   BoardNewRoute: BoardNewRoute,
   MyEditRoute: MyEditRoute,
+  BoardPostIdEditRoute: BoardPostIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

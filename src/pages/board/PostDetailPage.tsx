@@ -111,10 +111,13 @@ function PostDetail({ post }: { post: BoardPost }) {
                 className="-mr-2"
                 items={[
                   {
-                    // TODO: 글 수정 화면이 생기면 연결
                     label: '수정',
                     icon: <Pencil />,
-                    onClick: () => undefined,
+                    onClick: () =>
+                      navigate({
+                        to: '/board/$postId/edit',
+                        params: { postId: post.id },
+                      }),
                   },
                   {
                     label: '삭제',
