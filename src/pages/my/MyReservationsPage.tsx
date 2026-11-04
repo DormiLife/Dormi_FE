@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 import { CalendarDays } from "lucide-react";
 import { useState } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -39,6 +39,12 @@ export function MyReservationsPage() {
   const past = reservations.filter((r) => !isActive(r));
   const list = tab === "upcoming" ? upcoming : past;
 
+  const router = useRouter();
+  const goBack = () => {
+    if (router.history.canGoBack()) router.history.back()
+    else navigate({ to: '/my' })
+  }
+
   const handleCancel = () => {
     if (!cancelTarget) return;
     // TODO: 예약 취소 API 연동
@@ -56,7 +62,7 @@ export function MyReservationsPage() {
         <PageHeader
           title="내 회의실 예약"
           centered
-          onBack={() => navigate({ to: "/my" })}
+          onBack={goBack}
         />
       }
       flush
