@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 
 export type BadgeTone =
   | 'blue'
+  | 'info'
   | 'green'
   | 'orange'
   | 'gray'
@@ -12,6 +13,7 @@ export type BadgeTone =
 
 const toneClass: Record<BadgeTone, string> = {
   blue: 'bg-primary-soft text-primary-strong',
+  info: 'bg-info-soft text-info',
   green: 'bg-success-soft text-success',
   orange: 'bg-warning-soft text-warning',
   gray: 'bg-muted text-ink-sub',

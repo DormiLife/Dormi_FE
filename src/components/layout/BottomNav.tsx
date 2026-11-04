@@ -9,13 +9,13 @@ const items: {
   key: NavKey
   label: string
   /** 라우트가 아직 없는 탭은 비워둔다 */
-  to?: '/' | '/my'
+  to?: '/' | '/my' | '/board'
   /** 아이콘 크기를 개별 조정할 때 */
   iconClass?: string
   Icon: ComponentType<{ className?: string }>
 }[] = [
   { key: 'home', label: '홈', to: '/', Icon: House },
-  { key: 'board', label: '게시판', iconClass: 'size-[22px]', Icon: MessageCircle },
+  { key: 'board', label: '게시판', to: '/board', iconClass: 'size-[22px]', Icon: MessageCircle },
   { key: 'facility', label: '시설', Icon: CalendarDays },
   { key: 'my', label: '마이', to: '/my', Icon: User },
 ]

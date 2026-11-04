@@ -1,4 +1,5 @@
-import { BoardPreviewCard, type BoardPost } from '@/components/home/BoardPreviewCard'
+import { BoardPreviewCard } from '@/components/home/BoardPreviewCard'
+import type { BoardPost } from '@/lib/board'
 import { FacilityStatusCard } from '@/components/home/FacilityStatusCard'
 import { MyUsageCard, type UsageItem } from '@/components/home/MyUsageCard'
 import { TodayMealCard } from '@/components/home/TodayMealCard'
@@ -79,7 +80,13 @@ export function HomePage() {
         reservations={reservations}
       />
       <MyUsageCard items={usageItems} />
-      <BoardPreviewCard posts={posts} />
+      <BoardPreviewCard
+        posts={posts}
+        onViewMore={() => navigate({ to: '/board' })}
+        onPostClick={(postId) =>
+          navigate({ to: '/board/$postId', params: { postId } })
+        }
+      />
     </PageLayout>
   )
 }

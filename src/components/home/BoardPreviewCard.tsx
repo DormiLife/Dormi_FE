@@ -1,32 +1,9 @@
-import { Badge, type BadgeTone } from '@/components/ui/Badge'
+import { BoardCategoryBadge } from '@/components/board/BoardCategoryBadge'
+import { BoardPostMeta } from '@/components/board/BoardPostMeta'
 import { Card } from '@/components/ui/Card'
 import { ListRow } from '@/components/ui/ListRow'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { cn } from '@/lib/utils'
-
-export type BoardCategory = 'question' | 'info' | 'general'
-
-const categoryMeta: Record<
-  BoardCategory,
-  { label: string; tone: BadgeTone; className?: string }
-> = {
-  question: { label: '질문', tone: 'orange' },
-  info: {
-    label: '정보',
-    tone: 'blue',
-    className: 'bg-info-soft text-info',
-  },
-  general: { label: '일반', tone: 'gray' },
-}
-
-export interface BoardPost {
-  id: string
-  category: BoardCategory
-  title: string
-  author: string
-  /** 예: '10/27' */
-  date: string
-}
+import type { BoardPost } from '@/lib/board'
 
 interface BoardPreviewCardProps {
   posts: BoardPost[]
@@ -53,18 +30,13 @@ export function BoardPreviewCard({
           <ListRow
             key={id}
             icon={
-              <Badge
-                tone={categoryMeta[category].tone}
-                className={cn(
-                  'w-12 justify-center',
-                  categoryMeta[category].className,
-                )}
-              >
-                {categoryMeta[category].label}
-              </Badge>
+              <BoardCategoryBadge
+                category={category}
+                className="w-12 justify-center"
+              />
             }
             title={title}
-            description={`${author} · ${date}`}
+            description={<BoardPostMeta date={date} author={author} />}
             onClick={() => onPostClick?.(id)}
             chevron={false}
             className="px-0"

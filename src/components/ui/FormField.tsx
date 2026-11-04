@@ -9,6 +9,8 @@ interface FormFieldProps {
   helper?: ReactNode
   /** helper의 id. 입력창의 aria-describedby가 가리킨다 */
   helperId?: string
+  /** 오른쪽 끝에 표시할 글자 수 등. helper는 같은 줄 왼쪽에 놓인다 */
+  counter?: ReactNode
   status?: FieldStatus
   children: ReactNode
   className?: string
@@ -25,6 +27,7 @@ export function FormField({
   htmlFor,
   helper,
   helperId,
+  counter,
   status = 'default',
   children,
   className,
@@ -37,13 +40,20 @@ export function FormField({
         </label>
       )}
       {children}
-      {helper && (
-        <p
-          id={helperId}
-          className={cn('text-sm leading-snug', helperClass[status])}
-        >
-          {helper}
-        </p>
+      {(helper || counter) && (
+        <div className="flex items-start justify-between gap-3 px-2">
+          {helper && (
+            <p
+              id={helperId}
+              className={cn('text-sm leading-snug', helperClass[status])}
+            >
+              {helper}
+            </p>
+          )}
+          {counter && (
+            <p className="ml-auto shrink-0 text-sm text-ink-mute">{counter}</p>
+          )}
+        </div>
       )}
     </div>
   )
