@@ -2,12 +2,11 @@ import { BoardPreviewCard, type BoardPost } from '@/components/home/BoardPreview
 import { FacilityStatusCard } from '@/components/home/FacilityStatusCard'
 import { MyUsageCard, type UsageItem } from '@/components/home/MyUsageCard'
 import { TodayMealCard, type Meal } from '@/components/home/TodayMealCard'
-import { BottomNav, type NavKey } from '@/components/layout/BottomNav'
+import { BottomNav } from '@/components/layout/BottomNav'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { PageLayout } from '@/components/layout/PageLayout'
 import type { Reservation } from '@/lib/timeSlots'
 import { Bell, CalendarDays, House, WashingMachine } from 'lucide-react'
-import { useState } from 'react'
 
 const meals: Meal[] = [
   { type: 'breakfast', menus: ['백미밥', '미역국', '계란말이', '김치', '우유'] },
@@ -45,14 +44,12 @@ const posts: BoardPost[] = [
 ]
 
 export function HomePage() {
-  const [nav, setNav] = useState<NavKey>('home')
-
   return (
     <PageLayout
       header={
         <PageHeader
           logo={<House className="size-8 text-primary" />}
-          title="기숙사 생활"
+          title="DORMI"
           right={
             <button
               type="button"
@@ -65,7 +62,7 @@ export function HomePage() {
           }
         />
       }
-      bottomNav={<BottomNav active={nav} onChange={setNav} />}
+      bottomNav={<BottomNav active="home" />}
       className="space-y-4"
     >
       <TodayMealCard date="10월 27일 (화)" meals={meals} />
