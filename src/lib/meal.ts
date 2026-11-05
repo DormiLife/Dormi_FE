@@ -49,6 +49,25 @@ export function getWeekDays(date: Date) {
   return Array.from({ length: 7 }, (_, i) => addDays(monday, i))
 }
 
+/** 예: '2026.11.04' */
+export function formatDotDate(date: Date) {
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const dd = String(date.getDate()).padStart(2, '0')
+  return `${date.getFullYear()}.${mm}.${dd}`
+}
+
+/** 한 달 달력의 칸(월요일 시작, 7의 배수). month는 0부터이고 그 달이 아닌 칸은 null */
+export function getMonthCells(year: number, month: number) {
+  const lead = (new Date(year, month, 1).getDay() + 6) % 7
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const cells: (Date | null)[] = Array.from({ length: lead }, () => null)
+  for (let day = 1; day <= daysInMonth; day++) {
+    cells.push(new Date(year, month, day))
+  }
+  while (cells.length % 7 !== 0) cells.push(null)
+  return cells
+}
+
 /** 예: '10월 27일 (화)' */
 export function formatFullDate(date: Date) {
   const weekday = WEEKDAY_LABELS[(date.getDay() + 6) % 7]

@@ -40,7 +40,8 @@ export function SegmentedControl<T extends string>({
         isPill
           ? 'flex flex-wrap gap-2'
           : isTrack
-            ? 'relative flex rounded-card bg-muted p-1'
+            ? // isolate: 안쪽 버튼의 z-10이 sticky 헤더(z-10) 위로 새어 나가지 않게 한다
+              'relative isolate flex rounded-card bg-muted p-1'
             : 'grid gap-2.5',
         className,
       )}

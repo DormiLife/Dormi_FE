@@ -38,7 +38,7 @@ export function HomePage() {
       icon: <WashingMachine />,
       title: '세탁기 2번 이용 중',
       description: '22:10 완료 예정',
-      onClick: () => undefined,
+      onClick: () => navigate({ to: '/facility', search: { tab: 'laundry' } }),
     },
     {
       id: 'meeting-room',
@@ -79,6 +79,12 @@ export function HomePage() {
         washers={{ available: 4, total: 6 }}
         dryers={{ available: 3, total: 4 }}
         reservations={reservations}
+        onRegisterLaundry={() =>
+          navigate({ to: '/facility', search: { tab: 'laundry' } })
+        }
+        onReserveMeetingRoom={() =>
+          navigate({ to: '/facility', search: { tab: 'meeting' } })
+        }
       />
       <MyUsageCard items={usageItems} />
       <BoardPreviewCard
