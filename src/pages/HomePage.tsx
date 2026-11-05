@@ -102,7 +102,7 @@ export function HomePage() {
         <button
           type="button"
           className="shrink-0 rounded-control border border-primary bg-white px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary-soft"
-          onClick={() => window.open('https://www.ndhs.or.kr/site/main/home', '_blank')}
+          onClick={() => window.open('https://www.ndhs.or.kr/site/main/home', '_blank', 'noopener, noreferrer')}
         >
           바로가기
         </button>
