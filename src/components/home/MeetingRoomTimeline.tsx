@@ -26,7 +26,7 @@ export function MeetingRoomTimeline({
   const slots = toReservedSlots(reservations)
 
   return (
-    <div className={cn('rounded-2xl bg-canvas p-4', className)}>
+    <div className={cn('rounded-2xl bg-canvas p-3', className)}>
       <div
         role="img"
         aria-label="오늘 회의실 예약 현황"
@@ -36,7 +36,7 @@ export function MeetingRoomTimeline({
           <span
             key={i}
             className={cn(
-              'h-8 flex-1 rounded-[3px]',
+              'h-6 flex-1 rounded-[3px]',
               reserved ? 'bg-primary' : 'bg-ink-mute/20',
             )}
           />
@@ -55,7 +55,7 @@ export function MeetingRoomTimeline({
         ))}
       </div>
 
-      <div className="mt-3 flex items-center gap-4 text-sm text-ink-sub">
+      <div className="mt-2 flex items-center gap-4 text-sm text-ink-sub">
         <span className="inline-flex items-center gap-1.5">
           <span className="size-3 rounded-[3px] bg-primary" />
           예약됨

@@ -23,9 +23,9 @@ export function BoardPreviewCard({
         actionLabel="더보기"
         actionIconOnly
         onAction={onViewMore}
-        className="px-5 pt-5"
+        className="px-4 pt-4"
       />
-      <div className="mt-2 divide-y divide-line px-5">
+      <div className="mt-1 divide-y divide-line px-4">
         {posts.map(({ id, category, title, author, date }) => (
           <ListRow
             key={id}
@@ -39,7 +39,8 @@ export function BoardPreviewCard({
             description={<BoardPostMeta date={date} author={author} />}
             onClick={() => onPostClick?.(id)}
             chevron={false}
-            className="px-0"
+            className="px-0 py-3"
+            titleClassName="text-[15px] font-medium"
           />
         ))}
       </div>

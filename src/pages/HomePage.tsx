@@ -69,7 +69,7 @@ export function HomePage() {
         />
       }
       bottomNav={<BottomNav active="home" />}
-      className="space-y-4"
+      className="space-y-3"
     >
       <TodayMealCard
         date="10월 27일 (화)"
@@ -89,8 +89,8 @@ export function HomePage() {
           navigate({ to: '/board/$postId', params: { postId } })
         }
       />
-      <Card className="flex items-center gap-4 px-5 py-4">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+      <Card className="flex items-center gap-3 px-4 py-3">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
           <Link className="size-6" />
         </div>
         <div className="min-w-0 flex-1">

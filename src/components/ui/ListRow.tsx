@@ -13,6 +13,7 @@ interface ListRowProps {
   chevron?: boolean
   danger?: boolean
   className?: string
+  titleClassName?: string
 }
 
 export function ListRow({
@@ -24,6 +25,7 @@ export function ListRow({
   chevron = Boolean(onClick),
   danger,
   className,
+  titleClassName,
 }: ListRowProps) {
   const body = (
     <>
@@ -33,6 +35,7 @@ export function ListRow({
           className={cn(
             'block text-base font-semibold',
             danger ? 'text-danger' : 'text-ink',
+            titleClassName,
           )}
         >
           {title}

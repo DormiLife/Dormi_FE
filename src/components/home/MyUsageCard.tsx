@@ -17,11 +17,11 @@ interface MyUsageCardProps {
 
 export function MyUsageCard({ items }: MyUsageCardProps) {
   return (
-    <Card>
+    <Card className="p-4">
       <SectionHeader
         title="나의 이용 현황"
       />
-      <div className="mt-4 space-y-2">
+      <div className="mt-3 space-y-1.5">
         {items.map(({ id, icon, title, description, onClick }) => (
           <ListRow
             key={id}
@@ -33,7 +33,7 @@ export function MyUsageCard({ items }: MyUsageCardProps) {
             title={title}
             description={description}
             onClick={onClick}
-            className="rounded-xl bg-canvas px-4 py-3"
+            className="rounded-xl bg-canvas px-4 py-2.5"
           />
         ))}
       </div>
