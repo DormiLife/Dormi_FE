@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BoardRouteImport } from './routes/board'
+import { Route as FacilityRouteImport } from './routes/facility'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MealRouteImport } from './routes/meal'
 import { Route as MyRouteImport } from './routes/my'
@@ -30,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
 const BoardRoute = BoardRouteImport.update({
   id: '/board',
   path: '/board',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FacilityRoute = FacilityRouteImport.update({
+  id: '/facility',
+  path: '/facility',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -86,6 +92,7 @@ const BoardPostIdEditRoute = BoardPostIdEditRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/board': typeof BoardRoute
+  '/facility': typeof FacilityRoute
   '/login': typeof LoginRoute
   '/meal': typeof MealRoute
   '/my': typeof MyRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/board': typeof BoardRoute
+  '/facility': typeof FacilityRoute
   '/login': typeof LoginRoute
   '/meal': typeof MealRoute
   '/my': typeof MyRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/board': typeof BoardRoute
+  '/facility': typeof FacilityRoute
   '/login': typeof LoginRoute
   '/meal': typeof MealRoute
   '/my': typeof MyRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/board'
+    | '/facility'
     | '/login'
     | '/meal'
     | '/my'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/board'
+    | '/facility'
     | '/login'
     | '/meal'
     | '/my'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/board'
+    | '/facility'
     | '/login'
     | '/meal'
     | '/my'
@@ -174,6 +186,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BoardRoute: typeof BoardRoute
+  FacilityRoute: typeof FacilityRoute
   LoginRoute: typeof LoginRoute
   MealRoute: typeof MealRoute
   MyRoute: typeof MyRoute
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/board'
       fullPath: '/board'
       preLoaderRoute: typeof BoardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/facility': {
+      id: '/facility'
+      path: '/facility'
+      fullPath: '/facility'
+      preLoaderRoute: typeof FacilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -278,6 +298,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BoardRoute: BoardRoute,
+  FacilityRoute: FacilityRoute,
   LoginRoute: LoginRoute,
   MealRoute: MealRoute,
   MyRoute: MyRoute,
