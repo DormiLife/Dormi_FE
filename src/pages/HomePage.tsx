@@ -9,7 +9,8 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { PageLayout } from '@/components/layout/PageLayout'
 import type { Reservation } from '@/lib/timeSlots'
 import { useNavigate } from '@tanstack/react-router'
-import { Bell, CalendarDays, House, WashingMachine } from 'lucide-react'
+import { Bell, CalendarDays, House, Link, WashingMachine } from 'lucide-react'
+import { Card } from '@/components/ui/Card'
 
 const meals: Meal[] = [
   { type: 'breakfast', menus: ['백미밥', '미역국', '계란말이', '김치', '우유'] },
@@ -68,7 +69,7 @@ export function HomePage() {
         />
       }
       bottomNav={<BottomNav active="home" />}
-      className="space-y-4"
+      className="space-y-3"
     >
       <TodayMealCard
         date="10월 27일 (화)"
@@ -88,6 +89,24 @@ export function HomePage() {
           navigate({ to: '/board/$postId', params: { postId } })
         }
       />
+      <Card className="flex items-center gap-3 px-4 py-3">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+          <Link className="size-6" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-base font-bold text-ink">기숙사 공식 홈페이지</h2>
+          <div className="text-sm text-ink-mute">
+            공지사항과 행정 안내를 확인하세요.
+          </div>
+        </div>
+        <button
+          type="button"
+          className="shrink-0 rounded-control border border-primary bg-white px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary-soft"
+          onClick={() => window.open('https://www.ndhs.or.kr/site/main/home', '_blank', 'noopener, noreferrer')}
+        >
+          바로가기
+        </button>
+      </Card>
     </PageLayout>
   )
 }

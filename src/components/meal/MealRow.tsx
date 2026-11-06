@@ -4,9 +4,15 @@ import { cn } from '@/lib/utils'
 interface MealRowProps extends Meal {
   /** canvas: 카드 안의 회색 행(홈), card: 단독 흰색 카드(주간 식단) */
   variant?: 'canvas' | 'card'
+  className?: string
 }
 
-export function MealRow({ type, menus, variant = 'canvas' }: MealRowProps) {
+export function MealRow({
+  type,
+  menus,
+  variant = 'canvas',
+  className,
+}: MealRowProps) {
   return (
     <div
       className={cn(
@@ -14,6 +20,7 @@ export function MealRow({ type, menus, variant = 'canvas' }: MealRowProps) {
         variant === 'canvas'
           ? 'rounded-xl bg-canvas'
           : 'rounded-card border border-line bg-surface',
+        className,
       )}
     >
       <p className={cn('w-12 shrink-0 font-bold', mealMeta[type].color)}>

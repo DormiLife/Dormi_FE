@@ -66,12 +66,12 @@ export function FacilityStatusCard({
   onReserveMeetingRoom,
 }: FacilityStatusCardProps) {
   return (
-    <Card>
+    <Card className="p-4">
       <SectionHeader
         title="시설 이용 현황"
       />
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-3 space-y-3">
         <FacilitySection
           icon={<WashingMachine />}
           title="세탁 / 건조"

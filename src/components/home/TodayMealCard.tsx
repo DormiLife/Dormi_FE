@@ -12,7 +12,7 @@ interface TodayMealCardProps {
 
 export function TodayMealCard({ date, meals, onViewWeek }: TodayMealCardProps) {
   return (
-    <Card>
+    <Card className="p-4">
       <SectionHeader
         title="오늘의 급식"
         description={date}
@@ -20,10 +20,10 @@ export function TodayMealCard({ date, meals, onViewWeek }: TodayMealCardProps) {
         actionIconOnly
         onAction={onViewWeek}
       />
-      <ul className="mt-4 space-y-2">
+      <ul className="mt-2 space-y-1.5">
         {meals.map((meal) => (
           <li key={meal.type}>
-            <MealRow {...meal} />
+            <MealRow {...meal} className="py-2.5" />
           </li>
         ))}
       </ul>
