@@ -132,6 +132,16 @@ export function useMeetingBooking() {
   /** 예약 창에서 이용 구분과 사용 목적을 작성하고 확정한다 */
   const book = (details: RoomBookingDetails) => {
     if (!selection) return
+    // 예약 창을 열어 둔 사이 1분 타이머로 선택 구간이 지난 시간이 됐을 수 있다.
+    // 그러면 예약하지 않고 선택을 풀어, 타임라인에 바뀐 상태가 보이게 한다.
+    const stillFree = slotStates
+      .slice(selection.from, selection.to + 1)
+      .every((state) => state === 'free')
+    if (!stillFree) {
+      setSelection(null)
+      setBookingFormOpen(false)
+      return
+    }
     // TODO: 예약 API 연동
     setReservations((prev) => [
       ...prev,

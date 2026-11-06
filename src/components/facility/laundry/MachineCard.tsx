@@ -13,19 +13,28 @@ export type MachineLayout = 'card' | 'tile'
 
 // 섹션 카드 안에 놓이므로 테두리 없이 색으로만 구분한다
 const containerClass: Record<MachineStatus, string> = {
-  available: 'bg-success-soft',
-  inUse: 'bg-muted',
+  available: 'bg-surface ring-1 ring-gray-300 ring-inset',
+  inUse: 'bg-gray-500',
+  waiting: 'bg-line',
   mine: 'bg-primary-soft ring-[1.5px] ring-primary ring-inset',
   done: 'bg-primary-soft ring-[1.5px] ring-primary ring-inset',
-  outOfOrder: 'bg-muted opacity-45',
 }
 
 const accentClass: Record<MachineStatus, string> = {
-  available: 'text-success',
-  inUse: 'text-ink-sub',
+  available: 'text-ink-sub',
+  inUse: 'text-gray-100',
+  waiting: 'text-ink-sub',
   mine: 'text-primary-strong',
   done: 'text-primary-strong',
-  outOfOrder: 'text-ink-mute',
+}
+
+// 진한 배경(사용 중)에서는 번호·제목도 흰 글씨로 바꾼다
+const titleClass: Record<MachineStatus, string> = {
+  available: 'text-ink',
+  inUse: 'text-white',
+  waiting: 'text-ink',
+  mine: 'text-ink',
+  done: 'text-ink',
 }
 
 function cardStatus(machine: Machine, now: number) {
@@ -33,8 +42,8 @@ function cardStatus(machine: Machine, now: number) {
   switch (machine.status) {
     case 'available':
       return '사용 가능 · 등록하기'
-    case 'outOfOrder':
-      return '점검 중'
+    case 'waiting':
+      return '수거 대기'
     case 'mine':
       return `내 이용 · ${left} 남음`
     case 'done':
@@ -51,8 +60,8 @@ function tileStatus(machine: Machine, now: number) {
   switch (machine.status) {
     case 'available':
       return '사용 가능'
-    case 'outOfOrder':
-      return '점검 중'
+    case 'waiting':
+      return '수거 대기'
     case 'mine':
       return `내 이용 · ${left}`
     case 'done':
@@ -97,14 +106,14 @@ export function MachineCard({ machine, layout, now, onSelect }: MachineCardProps
 
   const body = isTile ? (
     <>
-      <span className="text-lg leading-tight font-bold text-ink">{number}</span>
+      <span className={cn('text-lg leading-tight font-bold', titleClass[status])}>{number}</span>
       <span className={cn('text-[11px] leading-tight font-medium', accentClass[status])}>
         {tileStatus(machine, now)}
       </span>
     </>
   ) : (
     <>
-      <span className="text-base font-bold text-ink">{title}</span>
+      <span className={cn('text-base font-bold', titleClass[status])}>{title}</span>
       <p className={cn('mt-0.5 text-sm font-medium', accentClass[status])}>
         {cardStatus(machine, now)}
       </p>
@@ -112,8 +121,8 @@ export function MachineCard({ machine, layout, now, onSelect }: MachineCardProps
         <ProgressBar
           value={totalMinutes * 60 - remaining}
           max={totalMinutes * 60}
-          className="mt-2 h-1.5 bg-line"
-          barClassName="bg-ink-mute"
+          className="mt-2 h-1.5 bg-white/20"
+          barClassName="bg-white/80"
         />
       )}
     </>

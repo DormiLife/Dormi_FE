@@ -1,4 +1,5 @@
 import {
+  countAvailability,
   machineKindLabel,
   machineKinds,
   type Machine,
@@ -11,8 +12,7 @@ interface AvailabilitySummaryProps {
 }
 
 function CountTile({ kind, machines }: { kind: MachineKind; machines: Machine[] }) {
-  const list = machines.filter((m) => m.kind === kind)
-  const available = list.filter((m) => m.status === 'available').length
+  const { available, total } = countAvailability(machines, kind)
   return (
     <div className="flex-1 rounded-2xl border border-line bg-surface px-3 py-2.5">
       <p className="flex items-center gap-1.5 text-sm font-bold text-ink-sub">
@@ -21,7 +21,7 @@ function CountTile({ kind, machines }: { kind: MachineKind; machines: Machine[] 
       </p>
       <p className="mt-0.5 text-xl font-bold text-ink">
         {available}
-        <span className="text-sm font-medium text-ink-mute">/{list.length}</span>
+        <span className="text-sm font-medium text-ink-mute">/{total}</span>
       </p>
     </div>
   )

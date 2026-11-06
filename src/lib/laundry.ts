@@ -3,11 +3,11 @@ export type MachineKind = 'washer' | 'dryer'
 /**
  * available: 사용 가능
  * inUse: 다른 사람이 사용 중
+ * waiting: 다른 사람의 타이머는 끝났지만 아직 수거 전(사용 불가)
  * mine: 내가 사용 중
  * done: 내 이용이 끝나 수거를 기다리는 중
- * outOfOrder: 점검 중
  */
-export type MachineStatus = 'available' | 'inUse' | 'mine' | 'done' | 'outOfOrder'
+export type MachineStatus = 'available' | 'inUse' | 'waiting' | 'mine' | 'done'
 
 export interface Machine {
   id: string
@@ -43,6 +43,15 @@ export function pickLayout(machines: Machine[]): 'card' | 'tile' {
 export const MAX_USAGE_HOURS = 3
 export const USAGE_MINUTE_STEP = 5
 export const DEFAULT_USAGE = { hours: 1, minutes: 0 } as const
+
+/** 종류별 사용 가능 대수와 전체 대수 */
+export function countAvailability(machines: Machine[], kind: MachineKind) {
+  const list = machines.filter((m) => m.kind === kind)
+  return {
+    available: list.filter((m) => m.status === 'available').length,
+    total: list.length,
+  }
+}
 
 /** 타이머가 돌고 있는(inUse, mine) 상태인지 */
 export function isRunning({ status }: Machine) {
@@ -102,7 +111,7 @@ function running(
 function idle(
   kind: MachineKind,
   number: number,
-  status: 'available' | 'outOfOrder' = 'available',
+  status: 'available' | 'waiting' = 'available',
 ): Machine {
   return { id: `${kind[0]}${number}`, kind, number, status }
 }
@@ -117,12 +126,12 @@ export const initialMachines: Machine[] = [
   idle('washer', 6),
   running('washer', 7, 10, 60),
   running('washer', 8, 55, 60),
-  idle('washer', 9, 'outOfOrder'),
+  idle('washer', 9, 'waiting'),
   running('washer', 10, 5, 30),
   idle('washer', 11),
   idle('washer', 12),
   idle('dryer', 1),
-  idle('dryer', 2, 'outOfOrder'),
+  idle('dryer', 2),
   running('dryer', 3, 20, 60),
   idle('dryer', 4),
   idle('dryer', 5),

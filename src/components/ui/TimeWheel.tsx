@@ -38,7 +38,7 @@ function WheelColumn({
 
   const move = (index: number) => {
     const next = Math.min(items.length - 1, Math.max(0, index))
-    ref.current?.scrollTo({ top: next * ITEM_HEIGHT, behavior: 'smooth' })
+    ref.current?.scrollTo({ top: next * ITEM_HEIGHT })
     onChange(items[next])
   }
 

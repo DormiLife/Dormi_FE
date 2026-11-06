@@ -34,7 +34,7 @@ export function MyMachineBanner({ machine, now, onRelease }: MyMachineBannerProp
       aria-label={`${title} ${isDone ? '이용 완료' : '이용 중'}`}
       className="rounded-2xl border border-primary/30 bg-primary-soft px-4 py-3"
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <ProgressRing
           value={isDone ? 1 : totalSeconds - remaining}
           max={isDone ? 1 : totalSeconds}
@@ -58,7 +58,7 @@ export function MyMachineBanner({ machine, now, onRelease }: MyMachineBannerProp
             <span className="text-xs tabular-nums">{formatCountdown(remaining)}</span>
           )}
         </ProgressRing>
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-base font-bold text-ink">
             {title} {isDone ? '이용 완료' : '이용 중'}
           </p>
@@ -70,16 +70,15 @@ export function MyMachineBanner({ machine, now, onRelease }: MyMachineBannerProp
               : ends && `${ends} 완료 예정`}
           </p>
         </div>
+        <Button
+          variant="primary"
+          size="sm"
+          className="shrink-0 px-3 whitespace-nowrap"
+          onClick={() => onRelease(machine.id)}
+        >
+          {isDone ? '수거하기' : '이용 끝내기'}
+        </Button>
       </div>
-      <Button
-        variant={isDone ? 'primary' : 'outline'}
-        size="sm"
-        fullWidth
-        className="mt-3"
-        onClick={() => onRelease(machine.id)}
-      >
-        {isDone ? '수거하기' : '이용 끝내기'}
-      </Button>
     </section>
   )
 }

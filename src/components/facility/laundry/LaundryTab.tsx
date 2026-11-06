@@ -1,3 +1,5 @@
+import { ConfirmModal } from '@/components/ui/ConfirmModal'
+import { machineTitle } from '@/lib/laundry'
 import type { LaundryState } from '@/pages/facility/useLaundry'
 import { AvailabilitySummary } from './AvailabilitySummary'
 import { LaundryRegisterModal } from './LaundryRegisterModal'
@@ -15,6 +17,9 @@ export function LaundryTab({ laundry }: LaundryTabProps) {
     myMachines,
     now,
     release,
+    releaseMachine,
+    requestRelease,
+    cancelRelease,
     registerMachine,
     openRegister,
     closeRegister,
@@ -23,6 +28,8 @@ export function LaundryTab({ laundry }: LaundryTabProps) {
     openDetail,
     closeDetail,
   } = laundry
+
+  const isDone = releaseMachine?.status === 'done'
 
   return (
     <div className="space-y-4">
@@ -35,7 +42,7 @@ export function LaundryTab({ laundry }: LaundryTabProps) {
               key={machine.id}
               machine={machine}
               now={now}
-              onRelease={release}
+              onRelease={requestRelease}
             />
           ))}
         </div>
@@ -58,7 +65,22 @@ export function LaundryTab({ laundry }: LaundryTabProps) {
         machine={detailMachine}
         now={now}
         onClose={closeDetail}
-        onRelease={release}
+        onRelease={requestRelease}
+      />
+      <ConfirmModal
+        open={releaseMachine !== null}
+        tone="primary"
+        title={isDone ? '수거를 완료할까요?' : '이용을 끝낼까요?'}
+        description={
+          releaseMachine &&
+          (isDone
+            ? `${machineTitle(releaseMachine)}이 사용 가능 상태로 바뀌어요.`
+            : `${machineTitle(releaseMachine)} 이용이 종료되고 사용 가능 상태로 바뀌어요.`)
+        }
+        cancelLabel="닫기"
+        confirmLabel={isDone ? '수거 완료' : '이용 끝내기'}
+        onCancel={cancelRelease}
+        onConfirm={() => releaseMachine && release(releaseMachine.id)}
       />
     </div>
   )

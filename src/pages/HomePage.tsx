@@ -7,6 +7,12 @@ import type { Meal } from '@/lib/meal'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { PageLayout } from '@/components/layout/PageLayout'
+import {
+  countAvailability,
+  endClock,
+  initialMachines,
+  machineTitle,
+} from '@/lib/laundry'
 import type { Reservation } from '@/lib/timeSlots'
 import { useNavigate } from '@tanstack/react-router'
 import { Bell, CalendarDays, House, WashingMachine } from 'lucide-react'
@@ -32,14 +38,22 @@ const posts: BoardPost[] = [
 export function HomePage() {
   const navigate = useNavigate();
 
+  // TODO: API 연동 시 교체
+  const myMachine = initialMachines.find((m) => m.status === 'mine')
+
   const usageItems: UsageItem[] = [
-    {
-      id: 'washer',
-      icon: <WashingMachine />,
-      title: '세탁기 2번 이용 중',
-      description: '22:10 완료 예정',
-      onClick: () => navigate({ to: '/facility', search: { tab: 'laundry' } }),
-    },
+    ...(myMachine
+      ? [
+          {
+            id: 'washer',
+            icon: <WashingMachine />,
+            title: `${machineTitle(myMachine)} 이용 중`,
+            description: `${endClock(myMachine)} 완료 예정`,
+            onClick: () =>
+              navigate({ to: '/facility', search: { tab: 'laundry' } }),
+          },
+        ]
+      : []),
     {
       id: 'meeting-room',
       icon: <CalendarDays />,
@@ -76,8 +90,8 @@ export function HomePage() {
         onViewWeek={() => navigate({ to: '/meal' })}
       />
       <FacilityStatusCard
-        washers={{ available: 4, total: 6 }}
-        dryers={{ available: 3, total: 4 }}
+        washers={countAvailability(initialMachines, 'washer')}
+        dryers={countAvailability(initialMachines, 'dryer')}
         reservations={reservations}
         onRegisterLaundry={() =>
           navigate({ to: '/facility', search: { tab: 'laundry' } })

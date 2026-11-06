@@ -9,9 +9,13 @@ interface ProgressRingProps {
   size?: number
   strokeWidth?: number
   className?: string
+  /** 기본 stroke-primary/20 */
+  trackClassName?: string
+  /** 기본 stroke-primary */
+  barClassName?: string
 }
 
-/** 원형 진행 표시. 채워지는 색은 text-primary를 따라간다 */
+/** 원형 진행 표시. 기본 색은 primary이고 trackClassName·barClassName으로 바꾼다 */
 export function ProgressRing({
   value,
   max,
@@ -19,6 +23,8 @@ export function ProgressRing({
   size = 64,
   strokeWidth = 6,
   className,
+  trackClassName = 'stroke-primary/20',
+  barClassName = 'stroke-primary',
 }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
@@ -40,7 +46,7 @@ export function ProgressRing({
           r={radius}
           fill="none"
           strokeWidth={strokeWidth}
-          className="stroke-primary/20"
+          className={trackClassName}
         />
         <circle
           cx={size / 2}
@@ -51,7 +57,7 @@ export function ProgressRing({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={circumference * (1 - ratio)}
-          className="stroke-primary transition-[stroke-dashoffset]"
+          className={cn('transition-[stroke-dashoffset]', barClassName)}
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center text-sm font-bold text-ink">

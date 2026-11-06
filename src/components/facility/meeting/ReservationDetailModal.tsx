@@ -98,7 +98,12 @@ function DetailBody({ detail, onClose, onCancel }: DetailBodyProps) {
             >
               돌아가기
             </Button>
-            <Button variant="danger" size="sm" onClick={() => onCancel(reservation.id)}>
+            <Button 
+              variant="danger" 
+              size="sm" 
+              disabled={phase !== 'upcoming'} 
+              onClick={() => onCancel(reservation.id)}
+            >
               예약 취소
             </Button>
           </>

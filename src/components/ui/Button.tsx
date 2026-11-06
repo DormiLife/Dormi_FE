@@ -21,8 +21,7 @@ const variantClass: Record<Variant, string> = {
     'border border-line bg-surface text-danger hover:bg-danger-soft disabled:text-ink-mute',
   soft: 'bg-muted text-ink-sub hover:bg-line',
   kakao: 'bg-kakao text-ink hover:brightness-95',
-  ghost: 'bg-transparent text-primary hover:bg-primary-soft',
-}
+  ghost: 'bg-transparent text-primary hover:bg-primary-soft',}
 
 const sizeClass: Record<Size, string> = {
   sm: 'h-10 px-4 text-sm',

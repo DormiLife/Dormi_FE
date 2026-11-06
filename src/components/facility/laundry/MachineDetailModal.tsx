@@ -71,7 +71,7 @@ export function MachineDetailModal({
           )}
           {machine.status === 'mine' && (
             <Button
-              variant="outline"
+              variant="primary"
               size="sm"
               fullWidth
               className="mt-6"
